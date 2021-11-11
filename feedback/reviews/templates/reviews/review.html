@@ -10,11 +10,12 @@
 <body>
     <form action="/" method="POST">
         {%csrf_token%}
-        {% if has_error %}
+        {% comment %} {% if has_error %}
          <p> Please give a valid input</p>
-        {% endif %}
-        <label for="username">Your Name</label>
-        <input id="username" name="username" type="text">
+        {% endif %} {% endcomment %}
+        {% comment %} <label for="username">Your Name</label>
+        <input id="username" name="username" type="text"> {% endcomment %}
+        {{form}}
         <button> Send </button>
     </form>
 </body>

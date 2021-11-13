@@ -1,11 +1,12 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <link rel="stylesheet" type="text/css" href="styles.css">
   <title>Your Review</title>
+  <link rel="stylesheet" href="{% static "reviews/styles.css"%}">
 </head>
 <body>
     <form action="/" method="POST">
@@ -15,8 +16,16 @@
         {% endif %} {% endcomment %}
         {% comment %} <label for="username">Your Name</label>
         <input id="username" name="username" type="text"> {% endcomment %}
-        {{form}}
-        <button> Send </button>
+        {% comment %} {{form}} {% endcomment %}
+        
+        {% for field in form %}
+          <div class="form-control {%if field.errors%}errors{%endif%}">
+          {{field.label_tag}}
+          {{field}}
+          {{field.errors}}
+        </div>
+        {% endfor %}
+        <button type="submit"> Send </button>
     </form>
 </body>
 </html>

@@ -39,3 +39,23 @@ class ReviewsListView(ListView):
 class ReviewDetailView(DetailView):
     template_name = "reviews/review_detail.html"
     model = Review  # html will get data as lowercase of model_name (review)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        loaded_review = self.object
+        request = self.request
+        # favourite_id = request.session["favourite_review"]
+        favourite_id = request.session.get("favourite_review")
+        print(loaded_review.id,favourite_id)
+        context["is_favourite"] = (int(favourite_id)==loaded_review.id)
+        return context
+    
+
+class AddFavouriteView(View):
+    def post(self,request):
+        review_id = request.POST['review_id']
+
+        request.session['favourite_review']=review_id
+
+        return HttpResponseRedirect("/reviews/"+review_id)

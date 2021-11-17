@@ -7,4 +7,14 @@
     <h2> Rating: {{review.rating}}</h2>
     <p> Comment:{{review.review_text}}</p>
 
+    {% if is_favourite %}
+        This is my favourite!
+    {% else %}
+        <form action="/reviews/favourite" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="review_id" value="{{review.id}}">
+        <button> Favourite </button>
+    </form>
+    {% endif %}
+    
 {% endblock content %}
